@@ -5,7 +5,7 @@ FINI
 
 /OUTP,,OUTP
 
-/TITLE, Lahta all piles
+/TITLE, All piles
 
                                !!!Materials
 UIMP,1,EX,DENS,NUXY,36e06,25,.2       ! Foundation mat shell
