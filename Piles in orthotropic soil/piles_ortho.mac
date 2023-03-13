@@ -1,0 +1,387 @@
+FINI
+/CLEAR,START
+
+/PREP7
+
+/OUTP,,OUTP
+
+/TITLE, Lahta all piles
+
+                               !!!Materials
+UIMP,1,EX,DENS,NUXY,36e06,25,.2       ! Foundation mat shell
+UIMP,2,EX,DENS,NUXY,35e06,25,.2       !	Pile
+UIMP,3,EX,DENS,NUXY,50e03,20,.3       !	soil1
+UIMP,4,EX,DENS,NUXY,100e03,20,.35       ! soil2
+UIMP,5,EX,DENS,NUXY,500e03,20,.35       ! soil3
+
+
+                               ! Elemente type
+et,1,45
+et,2,45
+et,3,45
+et,4,45
+et,5,45
+
+
+
+              !Geometry                        
+allsel              
+BLC4,-100,-100,200,200 !soil
+CYL4,0,0,38 !foun mat
+CYL4,0,0,15.2 !foun mat
+allsel
+AOVLAP,all 
+
+    !Piles
+CYL4,6,0,1 !pile
+
+
+!1st row
+allsel
+asel,s,loc,y,0
+asel,r,loc,x,6
+CSYS,1
+AGEN,8,all, , , ,45, , ,1
+
+
+!main rows
+allsel
+asel,s,loc,y,0
+asel,r,loc,x,6
+CSYS,0
+AGEN,3,all, , ,4.6, , , ,1
+
+allsel
+asel,s,loc,y,0
+asel,r,loc,x,6
+AGEN,2,all, , ,15.1, , , ,1
+
+allsel
+asel,s,loc,y,0
+asel,r,loc,x,6
+AGEN,2,all, , ,20, , , ,1
+
+allsel
+asel,s,loc,y,0
+asel,r,loc,x,6
+AGEN,2,all, , ,24.5, , , ,1
+
+allsel
+asel,s,loc,y,0
+asel,r,loc,x,10,40
+CSYS,1
+AGEN,16,all, , , ,22.5, , ,1
+
+
+!secondary rows
+allsel
+asel,s,loc,y,0
+asel,r,loc,x,6
+CSYS,0
+AGEN,2,all, , ,12.5, , , ,1
+
+allsel
+asel,s,loc,y,0
+asel,r,loc,x,6
+CSYS,0
+AGEN,2,all, , ,17.3, , , ,1
+
+allsel
+asel,s,loc,y,0
+asel,r,loc,x,6
+CSYS,0
+AGEN,2,all, , ,22.3, , , ,1
+
+
+allsel
+asel,s,loc,x,18.5
+asel,a,loc,x,23.3
+asel,a,loc,x,28.3
+asel,r,loc,y,0
+CSYS,1
+AGEN, ,all, , , ,11.25, , , ,1 
+AGEN,16,all, , , ,22.5, , ,1
+
+
+!last row
+allsel
+asel,s,loc,y,0
+asel,r,loc,x,6
+CSYS,0
+AGEN,2,all, , ,29, , , ,1
+
+allsel
+asel,s,loc,x,35
+CSYS,1
+AGEN, ,all, , , ,22.5, , , ,1 
+AGEN,8,all, , , ,45, , ,1
+
+allsel
+asel,s,loc,y,0
+asel,r,loc,x,6
+CSYS,0
+AGEN,2,all, , ,27, , , ,1
+
+allsel
+asel,s,loc,x,33
+CSYS,1
+AGEN, ,all, , , ,15, , , ,1
+AGEN,2,all, , , ,15, , ,1 
+AGEN,8,all, , , ,45, , ,1
+
+
+!areas overlap
+ALLSEL
+
+AOVLAP, ALL
+aplot
+
+CSYS,0
+k,700,0,200,500
+k,701,0,200,-150
+k,702,0,-250,500
+k,703,0,-250,-150
+
+A,700,701,703,702
+
+
+k,710,200, 0,500
+k,711,200,0,-150
+k,712,-250,0,500
+k,713,-250,0,-150
+
+A,710,711,713,712 
+
+ 
+
+!!!Extrude
+allsel
+CSYS,0
+
+allsel
+asel,s,loc,z,175
+asel,r,loc,x,-25
+VEXT,all, , ,0,-500,0,,,,
+allsel
+asel,s,loc,z,175
+asel,r,loc,y,-25
+VEXT,all, , ,-500,0,0,,,,
+
+
+allsel
+asel,s,loc,z,0
+VEXT,all, , ,0,0,-2,,,,
+allsel
+asel,s,loc,z,-2
+VEXT,all, , ,0,0,-8,,,,
+allsel
+asel,s,loc,z,-10
+VEXT,all, , ,0,0,-10,,,,
+allsel
+asel,s,loc,z,-20
+VEXT,all, , ,0,0,-50,,,,
+allsel
+asel,s,loc,z,-70
+VEXT,all, , ,0,0,-30,,,,
+
+allsel
+CSYS,1
+asel,s,loc,x,1,37.9
+asel,a,loc,x,-37.9,-1
+asel,r,loc,z,0
+LSLA,S
+ASLL,S
+asel,r,loc,z,0
+VEXT,all, , ,0,0,4,,,,
+
+allsel
+VOVLAP, all
+CSYS,0 
+vsel,s,loc,x,-500,0.1
+vsel,a,loc,y,-500,0.1  
+VDELE,all, , ,1
+
+                        !Boundry conditions
+! Load
+allsel
+csys,1  
+lsel,s,loc,x,15.2     
+lsel,r,loc,z,4
+SFL,all,PRES,44000,                      
+!SFA,all,1,PRES,1500
+
+allsel
+asel,s,loc,x,21.1
+asel,a,loc,x,26
+asel,r,loc,y,22.5
+asel,r,loc,z,4
+SFA,all,1,PRES,33450
+
+
+allsel
+asel,s,loc,x,21.1
+asel,a,loc,x,26
+asel,r,loc,y,67.5
+asel,r,loc,z,4
+SFA,all,1,PRES,33450
+
+
+!asel,s,loc,z,0
+!SFA,all,1,PRES,200
+
+! Displacement
+ALLSEL
+CSYS,0
+asel,s,loc,z,-100
+DA,all,UZ,
+allsel
+asel,s,loc,x,100
+DA,all,UX,
+allsel
+asel,s,loc,y,100
+DA,all,UY,
+  
+
+! Symmetry
+ALLSEL
+ASEL,S,LOC,x,0 
+DA,all,SYMM
+ALLSEL
+ASEL,S,LOC,y,0 
+DA,all,SYMM  
+
+
+!!!Mesh
+allsel
+vatt,2,,2
+
+CSYS,0
+vsel,s,loc,y,33,500  
+vsel,r,loc,x,33,500
+ASLV,S
+VSLA,S 
+ASLV,S
+vsel,a,loc,x,6.2,6.6    
+vatt,3,,3
+
+allsel
+vsel,s,loc,y,33,500   
+vsel,r,loc,x,33,500
+ASLV,S
+VSLA,S 
+ASLV,S
+vsel,a,loc,x,6.2,6.6  
+vsel,r,loc,z,-15
+vatt,4,,4
+
+allsel
+vsel,s,loc,y,33,500   
+vsel,r,loc,x,33,500
+ASLV,S
+VSLA,S 
+ASLV,S
+vsel,a,loc,x,6.2,6.6    
+vsel,r,loc,z,-45
+vatt,5,,5
+
+
+allsel
+vsel,s,loc,z,-85
+vatt,5,,5
+
+vsel,s,loc,z,2
+vatt,1,,1
+
+allsel
+asel,s,loc,x,100
+asel,a,loc,y,100
+asel,a,loc,y,-100
+AESIZE,all,4, , , , , ,
+
+
+allsel
+CSYS,1
+asel,s,loc,x,38
+CSYS,0
+AESIZE,all,1.5, , , , , ,
+
+allsel
+lsel,s,loc,y,0
+lsel,r,loc,x,69
+LESIZE, all, 4, , , 5, , , ,
+
+allsel
+lsel,s,loc,x,0
+lsel,r,loc,y,69
+LESIZE, all, 4, , , 5, , , , 
+
+allsel
+ESI=0.75
+ESIZ,ESI
+
+
+allsel
+MSHKEY,0
+MSHAPE,1,3d
+VMESH,ALL
+
+
+
+
+allsel
+NUMMRG,all            
+NUMCMP,ALL
+
+
+ALLSEL,ALL  
+ESEL,S,MAT,,2
+NSLE,S
+NSEL,R,LOC,Z,-2
+
+/OUTPUT, nlist.txt
+NLIST,ALL, , ,XYZ,NODE,NODE,NODE
+/OUT
+
+ALLSEL,ALL  
+ESEL,S,MAT,,1
+NSLE,S
+NSEL,R,LOC,Z,0
+
+/OUTPUT, nlist2.txt
+NLIST,ALL, , ,XYZ,NODE,NODE,NODE
+/OUT
+
+
+/solu
+
+TIME,1
+
+ANTYPE,STATIC
+EQSLV,SPARSE
+OUTRES,ALL,ALL        
+
+allsel
+
+solve
+
+/POST1
+ALLSEL,ALL  
+ESEL,S,MAT,,2
+NSLE,S
+NSEL,R,LOC,Z,-2
+ESLN,S
+
+/OUTPUT, 1.txt
+PRESOL,S,COMP
+/OUT
+
+ALLSEL,ALL  
+ESEL,S,MAT,,1
+NSLE,S
+NSEL,R,LOC,Z,0
+
+/OUTPUT, 1s.txt
+PRNSOL,U,Z
+/OUT
+
+
